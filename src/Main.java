@@ -1,24 +1,89 @@
 import java.util.Scanner;
+import java.util.Random;
 
 import static java.lang.System.exit;
 
 class Player {
-    String pid = "new";
-    int startCredits = 100;
+    private String pid = "new";
+    private int credits = 100;
+
+    //Setter and getter for player name
+    public void setName(String name) {
+        this.pid = name;
+    }
+
+    public String getName() {
+        return pid;
+    }
+
+    //Setter for player credits
+    public int getCredits() {
+        return credits;
+    }
+
+/*    public int updateCredits(int update) {
+    credits = update;
+    }*/
 
 }
 
+class UpdateCredits extends Player {
+    public void updateCredits(int wlCredits, String operation) {
+        if (operation.equals("win")) {
+            int credits = getCredits() + wlCredits;
+            updateCredits(credits);
+        } else {
+            int credits = getCredits() - wlCredits;
+            updateCredits(credits);
+        }
+        System.out.println("Your current credit account is: " + getCredits() + getName());
+    }
+}
+
+
+class PickANumber extends UpdateCredits {
+
+    PickANumber inner = new PickANumber() {
+
+        private Random rand = new Random();
+        int winNumber = rand.nextInt(30);
+
+        System.out.println("-=[ Welcome to Pick a Number Game ]=-");
+        System.out.println("This game costs 10 credits to play.");
+        System.out.println("Simply pick a number between 1 and 30 inclusive.");
+        System.out.println("If you pick the correct number you win 100 credits.");
+
+        System.out.println("Please enter your pick: ");
+        int guess = input.nextInt();
+
+        if(guess == winNumber)
+
+        {
+
+        }
+    };
+}
+
+class NoMatchDealer extends UpdateCredits {
+
+}
+
+class AceGame extends UpdateCredits {
+
+}
 
 public class Main {
 
     public static void main(String[] args) {
         boolean menu = true;
+        String newName;
         Player p1 = new Player();
 
-        if(p1.pid.equals("new"))
-        System.out.println("Welcome. Please enter a New player name: ");
+        if (p1.getName().equals("new"))
+            System.out.println("Welcome. Please enter a New player name: ");
         Scanner newPlayerName = new Scanner(System.in);
-        p1.pid = newPlayerName.nextLine();
+        newName = newPlayerName.nextLine();
+        p1.setName(newName);
 
         while (menu) {
             System.out.println("-=[ Game of Chance Menu ]=-");
@@ -38,6 +103,7 @@ public class Main {
             } else if (i < 4) {
                 if (i == 1) {
                     //pickNumberGame;
+                    p1.
                 } else if (i == 2) {
                     //noMatchGame;
                 } else if (i == 3) {
@@ -47,10 +113,14 @@ public class Main {
                 //viewScore;
             } else if (i == 5) {
                 //changePlayer
+                //System.out.println(p1.getName());
                 System.out.println("Change player name");
                 System.out.println("Enter new player name");
                 Scanner playerName = new Scanner(System.in);
-                p1.pid = playerName.nextLine();
+                newName = playerName.nextLine();
+                p1.setName(newName);
+                System.out.println(p1.getName());
+
             } else if (i == 6) {
                 //resetGame
                 System.out.println("Your account has been reset to 100 credits.");
@@ -65,3 +135,4 @@ public class Main {
     }
 }
 
+}
