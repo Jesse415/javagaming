@@ -3,6 +3,7 @@ import java.util.Random;
 
 import static java.lang.System.exit;
 
+/*Player information and parent classes*/
 class Player {
     private String pid;
     private int credits, wager;
@@ -84,12 +85,12 @@ class PickANumber extends Player {
             System.out.println("Congratulations you are a Winner!");
             System.out.println("You received 100 credits!");
             System.out.println(" ");
-            updateCredits(100, "win");
+            this.updateCredits(100, "win");
         } else {
-            System.out.println("Oh, That sucks! Seems like you picked: " + guess);
+            System.out.println("Oh, That sucks! You picked: " + guess);
             System.out.println("The winning number was: " + winNumber);
             System.out.println(" ");
-            updateCredits(10, "lose");
+            this.updateCredits(10, "lose");
         }
     }
 }
@@ -135,10 +136,11 @@ class NoMatchDealer extends Player {
         if (match != -1) {
             System.out.println("The dealer matched the number " + match + "!");
             System.out.println("You lose " + wager + " credits.");
-            updateCredits(wager, "lose");
+            this.updateCredits(wager, "lose");
         } else {
             System.out.println("There were no matches! You win " + wager + " credits!\n");
-            updateCredits(wager, "win");
+            wager += wager;
+            this.updateCredits(wager, "win");
         }
     }
 }
@@ -150,6 +152,22 @@ class AceGame extends Player {
     private char[] cards = new char[]{
             'X', 'X', 'X'
     };
+
+    private void printCards(char[] cards, int pick) {
+
+        System.out.println("\n\t*** Here are the Cards ***\n");
+        System.out.println("Cards:\t|" + cards[0] + "|\t|" + cards[1] + "|\t|" + cards[2] + "|\t");
+        System.out.println("      \t:-:\t:-:\t:-:");
+
+        if (pick == -1) {
+            System.out.println("\t\t 1 \t 2 \t 3\n");
+        } else {
+            pick++;
+            for (i = 0; i <= pick; i++)
+                System.out.print("\t");
+            System.out.print(" ^-- your pick\n");
+        }
+    }
 
     public void runGame() {
 
@@ -217,10 +235,11 @@ class AceGame extends Player {
                 if (pick == ace) {
                     System.out.println("Congratulations! You are a Winner!");
                     System.out.println("You win: " + getWager());
-                    updateCredits(wager, "win");
+                    wager += wager;
+                    this.updateCredits(wager, "win");
                 } else {
                     System.out.println("Sorry, You lose.");
-                    updateCredits(wager, "lose");
+                    this.updateCredits(wager, "lose");
                 }
             }
             if (choiceTwo == 'i' || choiceTwo == 'I') {
@@ -231,30 +250,10 @@ class AceGame extends Player {
                     wagerTwo = input.nextInt();
                 }
                 wager += wagerTwo;
-
             }
         }
     }
-
-    public void printCards(char[] cards, int pick) {
-
-        System.out.println("\n\t*** Here are the Cards ***\n");
-        System.out.println("Cards:\t|" + cards[0] + "|\t|" + cards[1] + "|\t|" + cards[2] + "|\n\t");
-        System.out.println("      \t._.\t._.\t._.\n");
-
-        if (pick == -1) {
-            System.out.println("\t\t 1 \t 2 \t 3\n");
-        } else {
-            pick++;
-            for (i = 0; i <= pick; i++)
-                System.out.print("\t");
-            System.out.print(" ^-- your pick\n");
-        }
-    }
 }
-
-;
-
 
 public class Main {
 
