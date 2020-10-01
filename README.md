@@ -1,4 +1,4 @@
-# Javagaming
+# Java Gaming
 
 The game has a CLI menu to which you follow the instructions upon lunch. It is
 a basic gambling game based on three options: Pick the queen, Guess a
